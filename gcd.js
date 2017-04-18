@@ -47,18 +47,30 @@ function RSAGetPrivateKeyRSA(M, N, L) {
 }
 
 function encrypt(message, MN, L) {
-
+    const a = Math.pow(message, L)
+    return a % MN
+}
+function decrypt(c, MN, x) {
+    const a = Math.pow(c, x)
+    return a % MN
 }
 
 function generatorKeys() {
     const M = getPrime()
     let N = getPrime()
-    const L = 37
+    const L = 173
     while (M === N || (M - 1) * (N - 1) < L) {
         N = getPrime()
     }
-
     return ({publicKey: RSAGetCommonKeyRSA(M, N, L), privateKey: RSAGetPrivateKeyRSA(M, N, L)})
 }
+const {publicKey, privateKey} = generatorKeys()
+console.log(publicKey)
+console.log(privateKey)
+const message = 97
+const c = encrypt(message, publicKey[0], publicKey[1])
+const message1 = decrypt(c, privateKey[0], privateKey[1])
+console.log(message1)
 
-console.log(generatorKeys())
+
+
