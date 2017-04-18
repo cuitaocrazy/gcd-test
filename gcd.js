@@ -47,12 +47,10 @@ function RSAGetPrivateKeyRSA(M, N, L) {
 }
 
 function encrypt(message, MN, L) {
-    const a = Math.pow(message, L)
-    return a % MN
+    return new BitInteger(message.toString()).modPow(new BitInteger(L.toString()), new BitInteger(MN.toString()))
 }
 function decrypt(c, MN, x) {
-    const a = Math.pow(c, x)
-    return a % MN
+    return new BitInteger(c.toString()).modPow(new BitInteger(x.toString()), new BitInteger(MN.toString()))
 }
 
 function generatorKeys() {
@@ -69,8 +67,9 @@ console.log(publicKey)
 console.log(privateKey)
 const message = 97
 const c = encrypt(message, publicKey[0], publicKey[1])
+console.log(c.toString())
 const message1 = decrypt(c, privateKey[0], privateKey[1])
-console.log(message1)
+console.log(message1.toString())
 
 
 
