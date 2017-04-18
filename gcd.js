@@ -46,6 +46,9 @@ function RSAGetPrivateKeyRSA(M, N, L) {
     return [M * N, x]
 }
 
+function encrypt(message, MN, L) {
+
+}
 function RSA() {
     const M = getPrime()
     let N = getPrime()
@@ -53,11 +56,11 @@ function RSA() {
     while (M === N || (M - 1) * (N - 1) < L) {
         N = getPrime()
     }
-    // const x= RSAGetPrivateKeyRSA(M,N,L)[1]
     console.log(M)
     console.log(N)
     console.log(RSAGetCommonKeyRSA(M, N, L))
     console.log(RSAGetPrivateKeyRSA(M, N, L))
 }
+
 
 RSA()
